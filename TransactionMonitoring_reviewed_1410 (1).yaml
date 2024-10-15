@@ -1,0 +1,484 @@
+openapi: 3.0.1
+info:
+  title: transaction-monitoring-service
+  version: 11.0.1 
+servers:
+  - url: 'https://finx-celta-api-dev.fincuro.in'
+    description: Transaction Monitoring
+paths:
+  /v1/transactions/scans:
+    post:
+      tags:
+        - Transactions
+      summary: Transaction Monitoring
+      operationId: transactionMonitoring
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: '#/components/schemas/TransactionMonitoringRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoringResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'       
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'  
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'   
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'      
+      security:
+        - bearerAuth: []
+  /v1/transactions/scans/{transactionId}:
+    put:
+      tags:
+        - Transactions
+      summary: Replace Transaction
+      operationId: replaceTransaction
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionMonitoringRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoringResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'       
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'  
+        '429':
+          description: Too Many Requesta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'   
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'         
+      security:
+        - bearerAuth: []
+    patch:
+      tags:
+        - Transactions
+      summary: Partial Update Transaction Data
+      operationId: updateTransaction
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionMonitoringRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionMonitoringResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'       
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'  
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'   
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'        
+      security:
+        - bearerAuth: []
+    get:
+      tags:
+        - Transactions
+      summary: Get Transaction Monitoring Result
+      operationId: getTransactionMonitoringResult
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionMonitoringResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+    head:
+      tags:
+        - Transactions
+      summary: Check Transaction Exists
+      operationId: checkTransactionExists
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - bearerAuth: []
+  /v1/transactions/scans/callback:
+    post:
+      tags:
+        - Webhook
+      summary: Transaction Monitoring Call Back
+      operationId: transactionMonitoringCallBack 
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: '#/components/schemas/TransactionMonitoringCallBackRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+        - bearerAuth: []    
+  /v1/transactions/reports/callback:
+    post:
+      tags:
+        - Webhook
+      summary: Export Report Call Back
+      operationId: exportTransactionMonitoringReportCallBack 
+      requestBody:
+        content:
+          application/json:
+            schema:
+               $ref: '#/components/schemas/TransactionMonitoringReportCallBackRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+      security:
+        - bearerAuth: []    
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    TransactionMonitoringRequest:
+      type: object
+      properties:
+        id: 
+          type: string
+        source_format: 
+          type: integer
+          format: int32
+        data: 
+          type: object
+          properties: 
+            counterPartyName: 
+              type: string
+            counterPartyAccountNumber: 
+              type: string
+            transactionId: 
+              type: string
+            txDateTime: 
+              type: string
+            customerId: 
+              type: string
+            customerName: 
+              type: string
+            counterpartyId: 
+              type: string
+            txDirection: 
+              type: string
+            txBaseCurrency: 
+              type: string
+            txBaseAmount: 
+              type: string
+    TransactionMonitoringResponse:
+      type: object
+      properties:
+        result: 
+          type: object
+          properties: 
+            haveAllPassed: 
+              type: boolean
+            transactionDateTime: 
+              type: string
+              format: date-time
+            transactionId: 
+              type: string
+            internalId: 
+              type: integer
+              format: int32
+            sourceFormat: 
+              type: integer
+              format: int32
+            storedData: 
+              type: object
+              properties:   
+                transactionId: 
+                  type: string
+                txDateTime: 
+                  type: string
+                  format: date-time
+                amount: 
+                  type: integer
+                  format: int32
+                sender: 
+                  type: string
+                beneficiary: 
+                  type: string
+            maxPriorityAction: 
+              type: string
+              nullable: true  
+            ruleResults: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  message: 
+                    type: string
+                  hasPassed: 
+                    type: boolean
+                  rule: 
+                    type: object
+                    properties: 
+                      id: 
+                        type: integer
+                        format: int32
+                      name: 
+                        type: string
+                      code: 
+                        type: string
+                  action: 
+                    type: string
+                    format: nullable  
+            cancelled: 
+              type: boolean
+            updatedAt: 
+              type: string   
+        errors: 
+          type: array
+          items: 
+            type: object  
+    TransactionMonitoringCallBackRequest:
+       type: object
+       properties :
+         created_at: 
+           type: string
+         datetime: 
+           type: string
+           format: date-time
+         external_id: 
+           type: string
+         internal_id: 
+           type: string
+         alerts: 
+            type: array
+            items: 
+              type: object
+              properties: 
+                action: 
+                  type: string
+                is_closed: 
+                  type: boolean
+                id: 
+                  type: string
+                created_at: 
+                  type: string
+                rule: 
+                  type: object
+                  properties: 
+                    id: 
+                      type: string
+                    name: 
+                      type: string
+                    code: 
+                      type: string
+                    description: 
+                      type: string
+                    summary: 
+                      type: string
+                state: 
+                  type: object
+                  properties: 
+                    id: 
+                      type: string
+                    label: 
+                      type: string
+                    end_state: 
+                      type: boolean   
+         priority_action: 
+           type: string
+           format: nullable
+         data: 
+           type: object
+           properties: 
+             tx_id: 
+               type: string
+    TransactionMonitoringReportCallBackRequest:
+      type: object
+      properties :
+        created_at: 
+          type: string
+        export_type: 
+          type: string
+        window_start_time: 
+          type: string
+          format: date-time
+        window_end_time: 
+          type: string
+          format: date-time
+        export_file: 
+          type: object
+          properties: 
+            name: 
+              type: string
+            download_url: 
+              type: string
+        status: 
+            type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
