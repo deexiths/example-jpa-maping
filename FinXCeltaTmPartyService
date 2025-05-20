@@ -41,7 +41,7 @@ paths:
         $ref: '#/components/requestBodies/InitiateSearchRequest'
       responses:
         '200':
-          $ref: '#/components/responses/IntiateSearchResponse'
+          $ref: '#/components/responses/InitiateSearchResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
@@ -166,7 +166,7 @@ components:
                 format: string
           party:
             $ref: '#/components/schemas/party'
-    IntiateSearchRequest:  
+    `SearchRequest:  
       type: object
       properties:
         partyStatuses:
@@ -215,7 +215,7 @@ components:
               format: string
         party:
           $ref: '#/components/schemas/party'
-    IntiateSearchResponse:
+    InitiateSearchResponse:
       type: object
       properties:
         parties:
@@ -255,7 +255,7 @@ components:
         content:
           application/json:
             schema:
-                $ref: '#/components/schemas/IntiateSearchRequest'
+                $ref: '#/components/schemas/InitiateSearchRequest'
   responses:
     InitiatePartyResponse:
         description: PartyFacility 
@@ -263,12 +263,12 @@ components:
           application/json:
             schema:
                 $ref: '#/components/schemas/InitiatePartyResponse'
-    IntiateSearchResponse:
+    InitiateSearchResponse:
         description: PartyFacility 
         content:
           application/json:
             schema:
-                $ref: '#/components/schemas/IntiateSearchResponse'  
+                $ref: '#/components/schemas/InitiateSearchResponse'  
     BadRequest:
       description: BadRequest
       content:
