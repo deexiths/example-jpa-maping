@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS 'prd_directory_db';
+USE `prd_directory_db`;
 
 CREATE TYPE `directory_date_type_enum` AS ENUM (
     'OPEN_DATE',
